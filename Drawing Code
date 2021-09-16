@@ -114,7 +114,7 @@ public class HelloGraphicsComponent extends JComponent {
         g2.fill(pedal4);
         g2.setColor(Color.BLACK);
         g2.draw(pedal4);
-        g2.setTransform(origTransform);
+        g2.setTransform(transformTwo);
 
         g2.setColor(new Color (24, 231, 193,255));
         g2.fill(pedal);
