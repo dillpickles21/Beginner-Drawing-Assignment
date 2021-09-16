@@ -1,0 +1,147 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
+
+public class HelloGraphicsComponent extends JComponent {
+    @Override
+    protected void paintBorder(Graphics g) {
+        super.paintComponent(g);
+
+        Graphics2D  g2 = (Graphics2D) g;
+
+        g2.setRenderingHint(
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON
+        );
+
+        final int penWidth = 3;
+        g2.setStroke(new BasicStroke(penWidth));
+
+        //brush stroke to background
+
+        final int backgroundW = 1000;
+        final int backgroundH = 1000;
+
+        Rectangle2D.Double background = new Rectangle2D.Double(
+                0,0,backgroundW, backgroundH
+        );
+
+        g2.setColor(new Color(32, 82, 243,255));
+        g2.fill(background);
+
+        //background to sun
+
+        final int sunX = -50;
+        final int sunY = -50;
+        final int sunW = 125;
+        final int sunH = 125;
+
+        Ellipse2D.Double sun = new Ellipse2D.Double(
+                sunX, sunY, sunW, sunH
+        );
+
+        g2.setColor(Color.YELLOW);
+        g2.fill(sun);
+
+        //sun to grass
+
+        final int grassX = -2;
+        final int grassY = 450;
+        final int grassW = 800;
+        final int grassH = 150;
+
+        Rectangle2D.Double grass = new Rectangle2D.Double(
+                grassX, grassY, grassW, grassH
+        );
+
+        g2.setColor(new Color(124, 234, 66,255));
+        g2.fill(grass);
+        g2.setColor(Color.BLACK);
+        g2.draw(grass);
+
+        //grass to stem
+
+        final double stemX = 338.5;
+        final int stemY = 300;
+        final int stemW = 25;
+        final int stemH = 150;
+
+        Rectangle2D.Double stem = new Rectangle2D.Double(
+                stemX, stemY, stemW, stemH
+        );
+
+        g2.setColor(Color.GREEN);
+        g2.fill(stem);
+        g2.setColor(Color.BLACK);
+        g2.draw(stem);
+
+        //stem to pedal 1 and 2
+
+        final int pedalX = 250;
+        final int pedalY = 225;
+        final int pedalW = 200;
+        final int pedalH = 50;
+
+        Ellipse2D.Double pedal = new Ellipse2D.Double(
+                pedalX, pedalY, pedalW, pedalH
+        );
+
+        Ellipse2D.Double pedal2 = new Ellipse2D.Double(
+                pedalX+75, pedalY-75,pedalW-150, pedalH+150
+        );
+
+        // Pedal 2 to Pedal 3
+
+        AffineTransform origTransform = g2.getTransform();
+        g2.setTransform(AffineTransform.getRotateInstance((Math.PI/4),345,250));
+        Ellipse2D.Double pedal3 = new Ellipse2D.Double(
+                pedalX, pedalY, pedalW, pedalH
+        );
+        g2.setColor(new Color(160, 19, 203,255));
+        g2.fill(pedal3);
+        g2.setColor(Color.BLACK);
+        g2.draw(pedal3);
+        g2.setTransform(origTransform);
+
+        AffineTransform transformTwo = g2.getTransform();
+        g2.setTransform(AffineTransform.getRotateInstance(-Math.PI/4, 300, 300));
+        Ellipse2D.Double pedal4 = new Ellipse2D.Double(
+                pedalX+23, pedalY+50, pedalW, pedalH
+        );
+        g2.setColor(new Color (229, 66, 25,255));
+        g2.fill(pedal4);
+        g2.setColor(Color.BLACK);
+        g2.draw(pedal4);
+        g2.setTransform(origTransform);
+
+        g2.setColor(new Color (24, 231, 193,255));
+        g2.fill(pedal);
+        g2.fill(pedal2);
+        g2.fill(pedal3);
+
+        g2.setColor(Color.BLACK);
+        g2.draw(pedal);
+        g2.draw(pedal2);
+        g2.draw(pedal3);
+
+        // Pedals to Circle
+
+        final int circleX = 300;
+        final int circleY = 200;
+        final int circleW = 100;
+        final int circleH = 100;
+
+        Ellipse2D.Double circle = new Ellipse2D.Double(
+           circleX, circleY, circleW, circleH
+        );
+
+        g2.setColor(Color.YELLOW);
+        g2.fill(circle);
+
+        g2.setColor(Color.BLACK);
+        g2.draw(circle);
+
+    } //end of main
+} //end of class
